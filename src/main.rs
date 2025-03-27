@@ -9,7 +9,15 @@ fn main() {
     if !fs::metadata(path).is_ok() {
         fs::create_dir_all(path).unwrap();
     }
-    if !fs::metadata(path_output).is_ok() {
+
+    if fs::metadata(path_output).is_ok() {
+        fs::read_dir(path_output).unwrap().for_each(|entry| {
+            let entry = entry.unwrap();
+            if entry.file_type().unwrap().is_file() {
+                fs::remove_file(entry.path()).unwrap();
+            }
+        });
+    } else {
         fs::create_dir_all(path_output).unwrap();
     }
 

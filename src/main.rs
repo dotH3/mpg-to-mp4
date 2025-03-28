@@ -5,7 +5,6 @@ fn main() {
     let path = "./input";
     let path_output = "./output";
 
-    // Crear directorios si no existen
     if !fs::metadata(path).is_ok() {
         fs::create_dir_all(path).unwrap();
     }
@@ -34,7 +33,6 @@ fn main() {
         };
         let file_stem = file_name.to_str().unwrap().rsplitn(2, '.').last().unwrap();
 
-        // convertir a mp4
         let buffer = fs::read(n.path()).unwrap();
         let buffer = buffer.len() as f64 / 1024.0 / 1024.0;
         println!("[DOING] {} ({:.2}MB)",file_stem,buffer);
